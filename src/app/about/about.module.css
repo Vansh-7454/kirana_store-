@@ -1,0 +1,115 @@
+.pageHeader {
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-10);
+  background-color: var(--color-surface-alt);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.headerInner {
+  max-width: 760px;
+}
+
+.headerIntro {
+  font-size: 1.15rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: var(--space-5);
+}
+
+.storyGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--space-10);
+  align-items: center;
+}
+
+.storyContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.storyParagraph {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+
+.audienceGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+.audienceCard {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+}
+
+.audienceTitle {
+  font-size: 1.2rem;
+  margin-bottom: var(--space-2);
+  color: var(--color-primary);
+}
+
+.commitmentsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+.commitmentCard {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+}
+
+.commitmentTitle {
+  font-size: 1.15rem;
+  margin-bottom: var(--space-2);
+}
+
+@media (max-width: 960px) {
+  .storyGrid {
+    grid-template-columns: 1fr;
+  }
+  .audienceGrid {
+    grid-template-columns: 1fr;
+  }
+  .commitmentsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageHeader {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-8);
+  }
+  .headerIntro {
+    font-size: 1rem;
+    margin-bottom: var(--space-4);
+  }
+  .storyGrid {
+    gap: var(--space-6);
+  }
+  .storyParagraph {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .audienceCard {
+    padding: var(--space-4);
+  }
+  .commitmentCard {
+    padding: var(--space-4);
+  }
+}

@@ -1,0 +1,30 @@
+.imageContainer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+}
+
+.ratio43 {
+  aspect-ratio: 4 / 3;
+}
+
+.ratio169 {
+  aspect-ratio: 16 / 9;
+}
+
+.ratio11 {
+  aspect-ratio: 1 / 1;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.2s ease;
+}
+
+.imageContainer:hover .image {
+  transform: scale(1.02);
+}

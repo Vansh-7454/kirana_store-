@@ -1,0 +1,159 @@
+.footer {
+  background-color: #101c16;
+  color: #d1dbd4;
+  border-top: 1px solid #23372c;
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-10);
+  font-size: 0.9375rem;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr 1fr;
+  gap: var(--space-8);
+  margin-bottom: var(--space-12);
+}
+
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.footerLogo {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.footerDesc {
+  color: #a0b3a7;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  max-width: 320px;
+  margin-bottom: var(--space-2);
+}
+
+.colTitle {
+  font-family: var(--font-heading);
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.01em;
+}
+
+.linkList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footerLink {
+  color: #a0b3a7;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  transition: color 0.15s ease;
+}
+
+.footerLink:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.contactList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.contactItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  line-height: 1.5;
+  color: #c0d0c6;
+}
+
+.contactIcon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.actionStack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footerBtn {
+  min-height: 44px;
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+}
+
+.bottomBar {
+  border-top: 1px solid #1c2e24;
+  padding-top: var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  color: #7b8f83;
+  font-size: 0.8125rem;
+}
+
+.placeholderNote {
+  color: #e5a745;
+  font-family: monospace;
+  font-size: 0.75rem;
+}
+
+@media (max-width: 992px) {
+  .footerGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+}
+
+@media (max-width: 600px) {
+  .footer {
+    padding-top: var(--space-10);
+    padding-bottom: var(--space-8);
+  }
+  .footerGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+  .actionStack {
+    width: 100%;
+  }
+  .footerBtn {
+    width: 100%;
+  }
+  .bottomBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footerLogo {
+    font-size: 1.2rem;
+  }
+  .colTitle {
+    font-size: 1rem;
+    margin-bottom: var(--space-3);
+  }
+  .footerDesc {
+    max-width: 100%;
+  }
+}

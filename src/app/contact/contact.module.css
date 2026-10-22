@@ -1,0 +1,131 @@
+.pageHeader {
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-10);
+  background-color: var(--color-surface-alt);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.headerInner {
+  max-width: 760px;
+}
+
+.headerIntro {
+  font-size: 1.15rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: var(--space-5);
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: var(--space-10);
+  margin-top: var(--space-8);
+  align-items: flex-start;
+}
+
+.cardsStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.contactCard {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  box-shadow: var(--shadow-sm);
+}
+
+.contactCard:hover {
+  border-color: var(--color-border-hover);
+}
+
+.cardHeaderRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: var(--space-2);
+}
+
+.cardIcon {
+  font-size: 1.4rem;
+}
+
+.cardTitle {
+  font-size: 1.15rem;
+  margin-bottom: 0;
+}
+
+.cardValue {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+  word-break: break-word;
+  margin-bottom: var(--space-3);
+}
+
+.placeholderWarning {
+  font-size: 0.8125rem;
+  color: var(--color-warning-text);
+  background-color: var(--color-warning-bg);
+  border: 1px dashed var(--color-warning-border);
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
+  margin-top: var(--space-2);
+}
+
+.mapCard {
+  background-color: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+.mapTitle {
+  font-size: 1.1rem;
+  margin-bottom: var(--space-2);
+}
+
+@media (max-width: 900px) {
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .contactCard {
+    padding: var(--space-4);
+  }
+  .contactCard .btn {
+    width: 100%;
+  }
+  .mapCard {
+    padding: var(--space-4);
+  }
+  .mapCard .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageHeader {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-8);
+  }
+  .headerIntro {
+    font-size: 1rem;
+    margin-bottom: var(--space-4);
+  }
+  .cardTitle {
+    font-size: 1.05rem;
+  }
+  .cardValue {
+    font-size: 0.95rem;
+  }
+}
