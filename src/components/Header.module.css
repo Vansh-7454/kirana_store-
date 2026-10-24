@@ -8,7 +8,7 @@
   transition: padding 240ms cubic-bezier(0.16, 1, 0.3, 1),
               background-color 240ms ease,
               box-shadow 240ms ease;
-  animation: headerEntrance 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: headerEntrance 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes headerEntrance {
@@ -17,7 +17,7 @@
     opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: none;
     opacity: 1;
   }
 }
@@ -122,7 +122,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background-color: #174C37; /* Forest green with WhatsApp green badge or direct styling */
+  background-color: #174C37;
   background: linear-gradient(145deg, #1f6448 0%, #174C37 100%);
   color: #ffffff;
   font-family: var(--font-body);
@@ -156,12 +156,13 @@
   letter-spacing: -0.01em;
 }
 
-@media (max-width: 420px) {
+@media (max-width: 640px) {
   .whatsappBtnText {
     display: none;
   }
   .whatsappHeaderBtn {
     padding: 8px 12px;
+    min-height: 40px;
   }
 }
 
@@ -173,15 +174,23 @@
   background: transparent;
   border: 1.5px solid var(--color-border);
   border-radius: 10px;
+  min-width: 44px;
+  min-height: 44px;
   padding: 8px;
   cursor: pointer;
   color: var(--color-text-main);
-  transition: background-color 160ms ease, border-color 160ms ease;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
 }
 
 .mobileToggle:hover {
   background-color: var(--color-surface-peach);
   border-color: var(--color-border-hover);
+}
+
+.mobileToggleActive {
+  background-color: var(--color-surface-peach);
+  border-color: var(--color-forest);
+  color: var(--color-forest);
 }
 
 @media (min-width: 860px) {
@@ -190,14 +199,14 @@
   }
 }
 
-/* Mobile Backdrop & Drawer */
+/* Backdrop Overlay */
 .mobileBackdrop {
   position: fixed;
   inset: 0;
-  background-color: rgba(16, 58, 43, 0.45);
+  background-color: rgba(16, 58, 43, 0.42);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  z-index: 1040;
+  z-index: 90;
   animation: fadeIn 200ms ease;
 }
 
@@ -206,86 +215,84 @@
   to { opacity: 1; }
 }
 
-.mobileMenu {
-  position: fixed;
-  top: 0;
+/* Mobile Dropdown Navigation Menu */
+.mobileDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
   right: 0;
-  bottom: 0;
-  width: 84%;
-  max-width: 320px;
   background-color: var(--color-bg);
-  box-shadow: -6px 0 30px rgba(16, 58, 43, 0.2);
-  z-index: 1050;
+  border-bottom: 2px solid var(--color-border);
+  box-shadow: 0 20px 40px -10px rgba(16, 58, 43, 0.16), 0 6px 14px rgba(16, 58, 43, 0.05);
+  z-index: 105;
+  max-height: calc(100vh - 76px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  animation: dropdownSlideDown 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes dropdownSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobileDropdownInner {
   display: flex;
   flex-direction: column;
-  padding: 24px 20px;
-  transform: translateX(100%);
-  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
-  overflow-y: auto;
-}
-
-.mobileMenuOpen {
-  transform: translateX(0);
-}
-
-.mobileMenuHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 16px;
-  border-bottom: 1.5px solid var(--color-border);
-}
-
-.closeBtn {
-  background: none;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  cursor: pointer;
-  color: var(--color-text-main);
-  transition: background-color 160ms ease;
-}
-
-.closeBtn:hover {
-  background-color: var(--color-surface-peach);
+  padding-top: 16px;
+  padding-bottom: 24px;
+  gap: 16px;
 }
 
 .mobileNavList {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin-top: 20px;
-  margin-bottom: 24px;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
 }
 
 .mobileNavLink {
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--color-text-main);
   text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 14px;
-  border-radius: 10px;
-  transition: background-color 160ms ease, color 160ms ease;
+  padding: 13px 16px;
+  border-radius: 12px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  min-height: 48px;
+  transition: all 180ms ease;
 }
 
 .mobileNavLink:hover {
   background-color: var(--color-surface-peach);
+  border-color: var(--color-border-hover);
   color: var(--color-forest);
+  transform: translateX(2px);
 }
 
 .mobileNavLinkActive {
   background-color: var(--color-surface-cream);
+  border-color: var(--color-forest);
   color: var(--color-forest);
+}
+
+.mobileNavLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .mobileActiveDot {
@@ -293,33 +300,107 @@
   height: 8px;
   border-radius: 50%;
   background-color: var(--color-forest);
+  box-shadow: 0 0 0 3px rgba(23, 76, 55, 0.15);
 }
 
-.mobileDrawerFooter {
-  margin-top: auto;
+.mobileNavArrow {
+  font-size: 16px;
+  color: var(--color-text-light);
+  transition: transform 160ms ease;
+}
+
+.mobileNavLink:hover .mobileNavArrow {
+  color: var(--color-forest);
+  transform: translateX(3px);
+}
+
+.mobileDropdownDivider {
+  height: 1px;
+  background-color: var(--color-border);
+  margin: 2px 0;
+}
+
+.mobileStoreInfoCard {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding-top: 16px;
-  border-top: 1.5px solid var(--color-border);
-}
-
-.mobileStoreInfo {
+  gap: 10px;
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 12px;
-  padding: 12px 14px;
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+.mobileStoreAddress {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--color-text-muted);
+}
+
+.mobileActionButtons {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 10px;
+}
+
+.mobileWhatsappBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(145deg, #25D366 0%, #128C7E 100%);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  min-height: 48px;
+  padding: 12px 18px;
+  border-radius: var(--radius-control);
+  box-shadow: 0 4px 14px rgba(18, 140, 126, 0.28);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.mobileWhatsappBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(18, 140, 126, 0.35);
+  color: #ffffff;
+}
+
+.mobileCallBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(145deg, var(--color-forest) 0%, var(--color-deep-green) 100%);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  min-height: 48px;
+  padding: 12px 18px;
+  border-radius: var(--radius-control);
+  box-shadow: 0 4px 14px rgba(23, 76, 55, 0.22);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.mobileCallBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(23, 76, 55, 0.3);
+  color: #ffffff;
+}
+
+.actionIcon {
+  flex-shrink: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .header,
-  .mobileMenu,
+  .mobileDropdown,
   .mobileBackdrop,
   .activeIndicator {
     animation: none;
     transition: none;
   }
 }
+

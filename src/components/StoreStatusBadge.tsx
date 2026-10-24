@@ -41,9 +41,6 @@ export default function StoreStatusBadge({ className }: StoreStatusBadgeProps) {
   const [isOpen, setIsOpen] = useState<boolean>(() => checkIsOpenKolkata());
 
   useEffect(() => {
-    // Immediate check on mount
-    setIsOpen(checkIsOpenKolkata());
-
     // Automatically refresh every 30 seconds so if the user leaves the page open
     // past 07:00 AM or 10:00 PM, the status updates automatically
     const interval = setInterval(() => {
