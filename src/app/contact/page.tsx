@@ -2,8 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import styles from "./contact.module.css";
 import { siteContent } from "@/data/siteContent";
-import ContactForm from "@/components/ContactForm";
-import { getPhoneLink, getWhatsAppLink, getMapLink } from "@/lib/contactHelpers";
+import StoreStatusBadge from "@/components/StoreStatusBadge";
 
 export const metadata: Metadata = {
   title: siteContent.contact.metaTitle,
@@ -11,142 +10,170 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const phoneInfo = getPhoneLink();
-  const whatsappInfo = getWhatsAppLink("Hello! I would like to place an order for groceries.");
-  const mapInfo = getMapLink();
-
   return (
-    <>
-      {/* Page Header */}
-      <section className={styles.pageHeader} aria-labelledby="contact-page-heading">
+    <div className={styles.contactPage}>
+      {/* ===================================================================
+          1. COMPACT PAGE HEADER WITH STATUS BADGE
+          =================================================================== */}
+      <section className={styles.pageHeader} aria-labelledby="contact-heading">
         <div className={`container ${styles.headerInner}`}>
-          <span className="section-badge">Reach Us</span>
-          <h1 id="contact-page-heading">{siteContent.contact.headline}</h1>
-          <p className={styles.headerIntro}>{siteContent.contact.intro}</p>
-          <div className="btn-group">
-            <a
-              href={whatsappInfo.isPlaceholder ? "#whatsapp-card" : whatsappInfo.href}
-              target={whatsappInfo.isPlaceholder ? undefined : "_blank"}
-              rel="noopener noreferrer"
-              className="btn btn-whatsapp"
-            >
-              💬 {siteContent.contact.whatsappButtonText}
-            </a>
-            <a
-              href={phoneInfo.isPlaceholder ? "#phone-card" : phoneInfo.href}
-              className="btn btn-primary"
-            >
-              📞 {siteContent.contact.callButtonText}
-            </a>
+          <span className="section-badge">Visit & Connect</span>
+          <h1 id="contact-heading" className={styles.pageTitle}>
+            Store Location & Hours
+          </h1>
+          <p className={styles.pageIntro}>
+            {siteContent.contact.intro}
+          </p>
+
+          <div className={styles.statusWrap}>
+            <StoreStatusBadge />
           </div>
         </div>
       </section>
 
-      {/* Main Contact Section */}
-      <section className="section" aria-labelledby="contact-details-heading">
+      {/* ===================================================================
+          2. STORE DETAILS & GOOGLE MAP GRID
+          =================================================================== */}
+      <section className={styles.contentSection} aria-label="Store Location and Contacts">
         <div className="container">
-          <div className="section-header">
-            <span className="section-badge section-badge-accent">Direct Contact</span>
-            <h2 id="contact-details-heading">Store Counter & Ordering Channels</h2>
-            <p>
-              Connect directly with our team for daily orders, price checks, or neighborhood delivery queries.
-            </p>
-          </div>
-
           <div className={styles.contactGrid}>
-            {/* Left Column: Direct Contact Info Cards */}
-            <div className={styles.cardsStack}>
-              {/* WhatsApp Card */}
-              <div id="whatsapp-card" className={styles.contactCard}>
-                <div className={styles.cardHeaderRow}>
-                  <span className={styles.cardIcon} aria-hidden="true">💬</span>
-                  <h3 className={styles.cardTitle}>WhatsApp Ordering</h3>
-                </div>
-                <p className={styles.cardValue}>{siteContent.storeDetails.whatsapp}</p>
-                <p>Send your handwritten list, voice note, or item names for quick packing.</p>
-                {whatsappInfo.isPlaceholder ? (
-                  <div className={styles.placeholderWarning}>
-                    ⚠️ Placeholder: Replace <code>whatsapp</code> and <code>whatsappRaw</code> in <code>src/data/siteContent.ts</code> to enable direct chat.
-                  </div>
-                ) : (
-                  <a
-                    href={whatsappInfo.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-whatsapp"
-                  >
-                    Open WhatsApp Chat →
-                  </a>
-                )}
+            {/* Left Column: Store Details Card */}
+            <div className={styles.detailsCard}>
+              <div className={styles.cardHeader}>
+                <h2 className={styles.cardTitle}>Counter Information</h2>
+                <p className={styles.cardSubtitle}>
+                  Verified contact details and timings for Sharma General Store.
+                </p>
               </div>
 
-              {/* Telephone Card */}
-              <div id="phone-card" className={styles.contactCard}>
-                <div className={styles.cardHeaderRow}>
-                  <span className={styles.cardIcon} aria-hidden="true">📞</span>
-                  <h3 className={styles.cardTitle}>Telephone Counter</h3>
-                </div>
-                <p className={styles.cardValue}>{siteContent.storeDetails.phone}</p>
-                <p>Speak directly with the shopkeeper during opening hours.</p>
-                {phoneInfo.isPlaceholder ? (
-                  <div className={styles.placeholderWarning}>
-                    ⚠️ Placeholder: Replace <code>phone</code> and <code>phoneRaw</code> in <code>src/data/siteContent.ts</code> to enable tap-to-call.
+              {/* Store & Locality */}
+              <div className={styles.detailRow}>
+                <div className={styles.detailIcon} aria-hidden="true">🏪</div>
+                <div className={styles.detailInfo}>
+                  <div className={styles.detailLabel}>Store Name & Locality</div>
+                  <div className={styles.detailValue}>
+                    <strong>{siteContent.storeDetails.name}</strong>
+                    <br />
+                    <span>{siteContent.storeDetails.address}</span>
                   </div>
-                ) : (
-                  <a href={phoneInfo.href} className="btn btn-primary">
-                    Tap to Call Store Counter
-                  </a>
-                )}
+                </div>
               </div>
 
-              {/* Physical Address & Map Card */}
-              <div id="address-card" className={styles.contactCard}>
-                <div className={styles.cardHeaderRow}>
-                  <span className={styles.cardIcon} aria-hidden="true">📍</span>
-                  <h3 className={styles.cardTitle}>Store Location</h3>
-                </div>
-                <p className={styles.cardValue}>{siteContent.storeDetails.address}</p>
-                <p><strong>Service Area:</strong> {siteContent.storeDetails.serviceArea}</p>
-                {mapInfo.isPlaceholder ? (
-                  <div className={styles.placeholderWarning}>
-                    ⚠️ Placeholder: Update <code>address</code> and <code>mapQueryUrl</code> in <code>src/data/siteContent.ts</code> to connect live Google Maps.
+              {/* Opening Hours & Schedule */}
+              <div className={styles.detailRow}>
+                <div className={styles.detailIcon} aria-hidden="true">🕒</div>
+                <div className={styles.detailInfo}>
+                  <div className={styles.detailLabel}>Operating Hours</div>
+                  <div className={styles.detailValue}>
+                    <strong>{siteContent.storeDetails.openingHoursDisplay}</strong>
+                    <br />
+                    <span className={styles.detailMuted}>
+                      Open Monday to Sunday (All 7 Days)
+                    </span>
                   </div>
-                ) : (
-                  <a
-                    href={mapInfo.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-secondary"
-                  >
-                    🗺️ {siteContent.contact.mapButtonText}
-                  </a>
-                )}
+                </div>
               </div>
 
-              {/* Opening Hours Card */}
-              <div className={styles.contactCard}>
-                <div className={styles.cardHeaderRow}>
-                  <span className={styles.cardIcon} aria-hidden="true">🕒</span>
-                  <h3 className={styles.cardTitle}>Counter Timings</h3>
+              {/* Phone Helpline */}
+              <div className={styles.detailRow}>
+                <div className={styles.detailIcon} aria-hidden="true">📞</div>
+                <div className={styles.detailInfo}>
+                  <div className={styles.detailLabel}>Store Phone Helpline</div>
+                  <div className={styles.detailValue}>
+                    <a
+                      href={`tel:${siteContent.storeDetails.phoneRaw}`}
+                      className={styles.contactLink}
+                    >
+                      {siteContent.storeDetails.phone}
+                    </a>
+                    <br />
+                    <span className={styles.detailMuted}>
+                      Available during 7:00 AM – 10:00 PM
+                    </span>
+                  </div>
                 </div>
-                <p className={styles.cardValue}>{siteContent.storeDetails.openingHours}</p>
-                <p><strong>Doorstep Delivery:</strong> {siteContent.storeDetails.deliveryNote}</p>
+              </div>
+
+              {/* WhatsApp Ordering */}
+              <div className={styles.detailRow}>
+                <div className={styles.detailIcon} aria-hidden="true">💬</div>
+                <div className={styles.detailInfo}>
+                  <div className={styles.detailLabel}>WhatsApp Quick Order</div>
+                  <div className={styles.detailValue}>
+                    <a
+                      href={siteContent.storeDetails.whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.contactLink}
+                    >
+                      {siteContent.storeDetails.whatsapp}
+                    </a>
+                    <br />
+                    <span className={styles.detailMuted}>
+                      Send typed list, handwritten photo, or voice note
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className={styles.actionsGroup}>
+                <a
+                  href={siteContent.storeDetails.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-whatsapp btn-block"
+                  style={{ fontSize: "16px", padding: "13px 20px" }}
+                >
+                  💬 Order on WhatsApp Now
+                </a>
+
+                <a
+                  href={`tel:${siteContent.storeDetails.phoneRaw}`}
+                  className="btn btn-primary btn-block"
+                  style={{ fontSize: "16px", padding: "13px 20px" }}
+                >
+                  📞 Call Counter ({siteContent.storeDetails.phone})
+                </a>
               </div>
             </div>
 
-            {/* Right Column: Interactive Form */}
-            <div>
-              <div style={{ marginBottom: "var(--space-4)" }}>
-                <span className="section-badge">Send Inquiry</span>
-                <h2>{siteContent.contact.formHeadline}</h2>
-                <p>{siteContent.contact.formIntro}</p>
+            {/* Right Column: Google Maps Embed & Get Directions */}
+            <div className={styles.mapWrapper}>
+              <div className={styles.mapFrameContainer}>
+                <iframe
+                  title="Sharma General Store Location in Indirapuram, Ghaziabad"
+                  src={siteContent.storeDetails.mapEmbedUrl}
+                  className={styles.mapFrame}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
 
-              <ContactForm />
+              <div className={styles.mapFooter}>
+                <div>
+                  <div className={styles.mapLocalityTitle}>
+                    📍 {siteContent.storeDetails.locality}
+                  </div>
+                  <div className={styles.mapLocalitySubtitle}>
+                    Serving residential societies across Ahinsa Khand
+                  </div>
+                </div>
+
+                <a
+                  href={siteContent.storeDetails.mapDirectionsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-secondary"
+                  style={{ fontWeight: 700, padding: "10px 18px" }}
+                >
+                  🗺️ Get Directions →
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

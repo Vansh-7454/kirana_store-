@@ -20,21 +20,28 @@ const inter = Inter({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#155239",
+  themeColor: "#174C37",
 };
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+
 export const metadata: Metadata = {
+  metadataBase: siteUrl ? new URL(siteUrl) : undefined,
   title: {
-    default: `${siteContent.storeDetails.shortName} | Daily Groceries & Kitchen Staples`,
-    template: `%s | ${siteContent.storeDetails.shortName}`,
+    default: `${siteContent.storeDetails.name} | Kirana Store in ${siteContent.storeDetails.locality}`,
+    template: `%s | ${siteContent.storeDetails.name}`,
   },
-  description: siteContent.storeDetails.tagline,
+  description: siteContent.home.intro,
   openGraph: {
-    title: `${siteContent.storeDetails.shortName} | Neighborhood Kirana Store`,
-    description: siteContent.storeDetails.tagline,
+    title: `${siteContent.storeDetails.name} | Indirapuram, Ghaziabad`,
+    description: siteContent.home.intro,
     type: "website",
     locale: "en_IN",
-    siteName: siteContent.storeDetails.shortName,
+    siteName: siteContent.storeDetails.name,
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

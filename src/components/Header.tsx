@@ -5,173 +5,174 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./Header.module.css";
 import { siteContent } from "@/data/siteContent";
-import { getPhoneLink, getWhatsAppLink } from "@/lib/contactHelpers";
+import WordmarkLogo from "./WordmarkLogo";
 
 export default function Header() {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const phoneInfo = getPhoneLink();
-  const whatsappInfo = getWhatsAppLink("Hello! I would like to place an order.");
-
-  // Close mobile menu on Escape key press
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen) {
-        setIsOpen(false);
-      }
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 15);
     };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen]);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  const toggleMenu = () => {
-    setIsOpen((prev) => !prev);
-  };
+  // Close mobile drawer on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   return (
-    <header className={styles.header}>
-      {/* Top Notification Bar */}
-      <div className={styles.topBar}>
-        <div className={`container ${styles.topBarInner}`}>
-          <div className={styles.topBarItem}>
-            <span>🕒 {siteContent.storeDetails.openingHours}</span>
-          </div>
-          <div className={styles.topBarItem}>
-            <span>📍 {siteContent.storeDetails.serviceArea}</span>
-          </div>
+    <header className={`${styles.header} ${isScrolled ? styles.headerScrolled : ""}`}>
+      <div className={`container ${styles.headerInner}`}>
+        {/* Left: Wordmark Logo */}
+        <div className={styles.logoWrap}>
+          <WordmarkLogo />
         </div>
-      </div>
 
-      {/* Main Navigation Bar */}
-      <div className={styles.navBar}>
-        <div className={`container ${styles.navContainer}`}>
-          {/* Starter Text-Based Logo */}
-          <Link href="/" className={styles.logo} aria-label={`${siteContent.storeDetails.shortName} Homepage`}>
-            <div className={styles.logoIcon} aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9" />
-                <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" />
-                <path d="M10 13a2 2 0 0 0 4 0" />
-              </svg>
-            </div>
-            <div className={styles.logoTextGroup}>
-              <span className={styles.logoTitle}>{siteContent.storeDetails.shortName}</span>
-              <span className={styles.logoSubtitle}>Neighborhood Grocery</span>
-            </div>
-          </Link>
+        {/* Center: Desktop Navigation */}
+        <nav className={styles.desktopNav} aria-label="Main Navigation">
+          {siteContent.navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`${styles.navLink} ${isActive ? styles.navLinkActive : ""}`}
+                aria-current={isActive ? "page" : undefined}
+              >
+                <span>{link.label}</span>
+                {isActive && <span className={styles.activeIndicator} />}
+              </Link>
+            );
+          })}
+        </nav>
 
-          {/* Desktop Navigation Links */}
-          <nav className={styles.desktopNav} aria-label="Main Navigation">
-            {siteContent.navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`${styles.navLink} ${isActive ? styles.navLinkActive : ""}`}
-                  aria-current={isActive ? "page" : undefined}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* Header Quick Actions */}
-          <div className={styles.headerActions}>
-            <a
-              href={whatsappInfo.isPlaceholder ? "/contact#whatsapp" : whatsappInfo.href}
-              target={whatsappInfo.isPlaceholder ? undefined : "_blank"}
-              rel="noopener noreferrer"
-              className={`btn btn-whatsapp ${styles.actionBtn}`}
-              title={whatsappInfo.isPlaceholder ? "Placeholder: WhatsApp number not yet configured" : "Chat on WhatsApp"}
+        {/* Right: WhatsApp CTA & Mobile Toggle */}
+        <div className={styles.headerActions}>
+          <a
+            href={siteContent.storeDetails.whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.whatsappHeaderBtn}
+            aria-label="Order on WhatsApp"
+          >
+            <svg
+              className={styles.whatsappIcon}
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-              </svg>
-              <span>WhatsApp</span>
-            </a>
+              <path d="M12.031 2C6.51 2 2.016 6.49 2.016 12c0 1.94.55 3.75 1.51 5.28L2 22l4.89-1.48A9.94 9.94 0 0 0 12.03 22c5.52 0 10.01-4.49 10.01-10s-4.49-10-10.01-10zm5.88 14.19c-.25.7-.99 1.28-1.74 1.44-.5.11-1.15.19-3.33-.71-2.79-1.15-4.57-3.99-4.71-4.18-.14-.19-1.13-1.5-1.13-2.86 0-1.36.71-2.03.96-2.31.25-.28.56-.35.74-.35.19 0 .37.01.53.02.17.01.4-.06.63.48.24.56.81 1.98.88 2.13.07.14.12.31.02.5-.1.19-.15.3-.29.47-.15.17-.31.37-.44.5-.15.15-.31.31-.13.62.18.31.8 1.32 1.72 2.14 1.18 1.05 2.18 1.37 2.49 1.53.31.15.49.13.67-.08.19-.21.79-.92 1-1.23.21-.31.43-.26.72-.15.29.11 1.83.86 2.14 1.02.31.15.52.23.6.36.08.13.08.76-.17 1.46z" />
+            </svg>
+            <span className={styles.whatsappBtnText}>Order on WhatsApp</span>
+          </a>
 
-            <a
-              href={phoneInfo.isPlaceholder ? "/contact#phone" : phoneInfo.href}
-              className={`btn btn-primary ${styles.actionBtn}`}
-              title={phoneInfo.isPlaceholder ? "Placeholder: Phone number not yet configured" : "Call Store"}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-              </svg>
-              <span>Call Us</span>
-            </a>
-          </div>
-
-          {/* Mobile Menu Toggle Button */}
+          {/* Mobile Menu Hamburger */}
           <button
             type="button"
             className={styles.mobileToggle}
-            onClick={toggleMenu}
-            aria-expanded={isOpen}
-            aria-controls="mobile-navigation"
-            aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMobileMenuOpen}
           >
-            {isOpen ? (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            ) : (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </svg>
-            )}
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
           </button>
         </div>
       </div>
 
-      {/* Accessible Mobile Navigation Drawer */}
-      <div
-        id="mobile-navigation"
-        className={`${styles.mobileMenu} ${isOpen ? styles.mobileMenuOpen : ""}`}
-        role="region"
-        aria-label="Mobile Navigation"
-      >
-        <ul className={styles.mobileNavList}>
-          {siteContent.navLinks.map((link) => {
-            const isActive = pathname === link.href;
-            return (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={`${styles.mobileNavLink} ${isActive ? styles.mobileNavLinkActive : ""}`}
-                  aria-current={isActive ? "page" : undefined}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+      {/* Mobile Drawer Backdrop & Drawer */}
+      {isMobileMenuOpen && (
+        <>
+          <div
+            className={styles.mobileBackdrop}
+            onClick={() => setIsMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
+          <div
+            className={`${styles.mobileMenu} ${styles.mobileMenuOpen}`}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile Navigation"
+          >
+            <div className={styles.mobileMenuHeader}>
+              <WordmarkLogo />
+              <button
+                type="button"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={styles.closeBtn}
+                aria-label="Close navigation menu"
+              >
+                ✕
+              </button>
+            </div>
 
-        <div className={styles.mobileActions}>
-          <a
-            href={whatsappInfo.isPlaceholder ? "/contact#whatsapp" : whatsappInfo.href}
-            target={whatsappInfo.isPlaceholder ? undefined : "_blank"}
-            rel="noopener noreferrer"
-            className="btn btn-whatsapp btn-block"
-          >
-            💬 Chat on WhatsApp
-          </a>
-          <a
-            href={phoneInfo.isPlaceholder ? "/contact#phone" : phoneInfo.href}
-            className="btn btn-primary btn-block"
-          >
-            📞 Call Store Counter
-          </a>
-        </div>
-      </div>
+            <nav className={styles.mobileNavList} aria-label="Mobile Menu Links">
+              {siteContent.navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`${styles.mobileNavLink} ${isActive ? styles.mobileNavLinkActive : ""}`}
+                    aria-current={isActive ? "page" : undefined}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <span>{link.label}</span>
+                    {isActive && <span className={styles.mobileActiveDot} />}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className={styles.mobileDrawerFooter}>
+              <div className={styles.mobileStoreInfo}>
+                <div style={{ fontWeight: 700, color: "var(--color-primary-dark)" }}>
+                  📍 {siteContent.storeDetails.locality}
+                </div>
+                <div style={{ fontSize: "13px", color: "var(--color-text-muted)" }}>
+                  Daily {siteContent.storeDetails.openingHoursDisplay}
+                </div>
+              </div>
+
+              <a
+                href={siteContent.storeDetails.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-whatsapp btn-block"
+              >
+                💬 Order on WhatsApp
+              </a>
+              <a
+                href={`tel:${siteContent.storeDetails.phoneRaw}`}
+                className="btn btn-primary btn-block"
+              >
+                📞 Call Store Counter
+              </a>
+            </div>
+          </div>
+        </>
+      )}
     </header>
   );
 }

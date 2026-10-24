@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-card);
   background-color: var(--color-surface-alt);
   border: 1px solid var(--color-border);
 }
@@ -22,9 +22,4 @@
 .image {
   object-fit: cover;
   object-position: center;
-  transition: transform 0.2s ease;
-}
-
-.imageContainer:hover .image {
-  transform: scale(1.02);
 }

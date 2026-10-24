@@ -1,131 +1,234 @@
+.contactPage {
+  background-color: var(--color-bg);
+  min-height: 80vh;
+}
+
+/* Compact Page Header */
 .pageHeader {
-  padding-top: var(--space-12);
-  padding-bottom: var(--space-10);
-  background-color: var(--color-surface-alt);
-  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  border-bottom: 1.5px solid var(--color-border);
+  padding: var(--space-48) 0 var(--space-40);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .pageHeader {
+    padding: var(--space-64) 0 var(--space-48);
+  }
 }
 
 .headerInner {
-  max-width: 760px;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.headerIntro {
-  font-size: 1.15rem;
+.pageTitle {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h2);
+  font-weight: 800;
+  color: var(--color-deep-green);
+  letter-spacing: -0.025em;
+  margin-top: var(--space-12);
+  margin-bottom: var(--space-12);
+  line-height: 1.15;
+}
+
+.pageIntro {
+  font-size: 16px;
   color: var(--color-text-muted);
   line-height: 1.6;
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-20);
+  max-width: 580px;
+}
+
+.statusWrap {
+  margin-top: 4px;
+}
+
+/* Grid Layout */
+.contentSection {
+  padding: var(--space-64) 0;
+}
+
+@media (min-width: 768px) {
+  .contentSection {
+    padding: var(--space-80) 0;
+  }
 }
 
 .contactGrid {
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: var(--space-10);
-  margin-top: var(--space-8);
+  grid-template-columns: 1fr;
+  gap: var(--space-40);
   align-items: flex-start;
 }
 
-.cardsStack {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
+@media (min-width: 960px) {
+  .contactGrid {
+    grid-template-columns: 1.05fr 1.2fr;
+    gap: var(--space-48);
+  }
 }
 
-.contactCard {
+/* Store Details Card */
+.detailsCard {
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 32px 28px;
+  box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  box-shadow: var(--shadow-sm);
+  gap: 22px;
 }
 
-.contactCard:hover {
-  border-color: var(--color-border-hover);
-}
-
-.cardHeaderRow {
+.cardHeader {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: var(--space-2);
-}
-
-.cardIcon {
-  font-size: 1.4rem;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .cardTitle {
-  font-size: 1.15rem;
-  margin-bottom: 0;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-deep-green);
 }
 
-.cardValue {
-  font-size: 1.05rem;
-  font-weight: 600;
+.cardSubtitle {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.detailRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.detailIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-color: var(--color-surface-peach);
+  color: var(--color-turmeric-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(244, 225, 207, 0.4);
+}
+
+.detailInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.detailLabel {
+  font-family: var(--font-heading);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--color-deep-green);
+}
+
+.detailValue {
+  font-size: 14.5px;
   color: var(--color-text-main);
-  word-break: break-word;
-  margin-bottom: var(--space-3);
+  line-height: 1.5;
 }
 
-.placeholderWarning {
-  font-size: 0.8125rem;
-  color: var(--color-warning-text);
-  background-color: var(--color-warning-bg);
-  border: 1px dashed var(--color-warning-border);
-  padding: 0.35rem 0.65rem;
-  border-radius: var(--radius-sm);
-  margin-top: var(--space-2);
+.detailMuted {
+  font-size: 12.5px;
+  color: var(--color-text-muted);
 }
 
-.mapCard {
-  background-color: var(--color-surface-alt);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
-  margin-top: var(--space-6);
+.contactLink {
+  color: var(--color-forest);
+  font-weight: 700;
+  font-size: 15.5px;
+  text-decoration: none;
+  transition: color 160ms ease;
 }
 
-.mapTitle {
-  font-size: 1.1rem;
-  margin-bottom: var(--space-2);
+.contactLink:hover {
+  color: var(--color-deep-green);
+  text-decoration: underline;
 }
 
-@media (max-width: 900px) {
-  .contactGrid {
-    grid-template-columns: 1fr;
+.actionsGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+/* Map Embed Container */
+.mapWrapper {
+  background-color: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+}
+
+.mapFrameContainer {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  background-color: var(--color-surface-cream);
+}
+
+@media (min-width: 768px) {
+  .mapFrameContainer {
+    height: 440px;
   }
 }
 
-@media (max-width: 600px) {
-  .contactCard {
-    padding: var(--space-4);
-  }
-  .contactCard .btn {
-    width: 100%;
-  }
-  .mapCard {
-    padding: var(--space-4);
-  }
-  .mapCard .btn {
-    width: 100%;
+.mapFrame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.mapFooter {
+  padding: 20px 24px;
+  background-color: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+  border-top: 1px solid var(--color-border-light);
+}
+
+@media (min-width: 600px) {
+  .mapFooter {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 }
 
-@media (max-width: 480px) {
-  .pageHeader {
-    padding-top: var(--space-8);
-    padding-bottom: var(--space-8);
-  }
-  .headerIntro {
-    font-size: 1rem;
-    margin-bottom: var(--space-4);
-  }
-  .cardTitle {
-    font-size: 1.05rem;
-  }
-  .cardValue {
-    font-size: 0.95rem;
-  }
+.mapLocalityTitle {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-deep-green);
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.mapLocalitySubtitle {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
 }

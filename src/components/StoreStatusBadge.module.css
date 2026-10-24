@@ -1,0 +1,57 @@
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  width: fit-content;
+  transition: all 200ms ease;
+  user-select: none;
+}
+
+.statusOpen {
+  background-color: #E8F5E9;
+  color: #1B5E20;
+  border: 1.5px solid #A5D6A7;
+}
+
+.statusClosed {
+  background-color: #FFEBEE;
+  color: #B71C1C;
+  border: 1.5px solid #FFCDD2;
+}
+
+.statusDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.statusOpen .statusDot {
+  background-color: #2E7D32;
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.25);
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+.statusClosed .statusDot {
+  background-color: #C62828;
+}
+
+.statusText {
+  letter-spacing: -0.01em;
+}
+
+@keyframes pulseDot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.85;
+  }
+}

@@ -4,14 +4,21 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <section className="section" style={{ minHeight: "65vh", display: "flex", alignItems: "center" }}>
-      <div className="container" style={{ textAlign: "center", maxWidth: "600px" }}>
-        <span className="section-badge" style={{ backgroundColor: "#fef2f2", color: "#b91c1c", borderColor: "#fecaca" }}>
+      <div className="container" style={{ textAlign: "center", maxWidth: "680px" }}>
+        <span
+          className="section-badge"
+          style={{
+            backgroundColor: "var(--color-danger-bg)",
+            color: "var(--color-danger)",
+            borderColor: "var(--color-danger-border)",
+          }}
+        >
           Page Not Found (404)
         </span>
-        <h1 style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-          We Couldn&apos;t Find That Shelf
+        <h1 style={{ marginTop: "var(--space-16)", marginBottom: "var(--space-16)" }}>
+          We Could Not Find That Shelf
         </h1>
-        <p className="lead" style={{ marginBottom: "2rem" }}>
+        <p className="lead" style={{ marginBottom: "var(--space-32)", marginLeft: "auto", marginRight: "auto" }}>
           The page or product category you are looking for might have been moved, renamed, or is currently out of stock.
         </p>
 

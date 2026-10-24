@@ -1,0 +1,73 @@
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  user-select: none;
+  transition: opacity 180ms ease;
+}
+
+.logoLink:hover {
+  opacity: 0.92;
+}
+
+/* Emblem with restrained wheat/leaf emblem */
+.logoIcon {
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(145deg, var(--color-forest) 0%, var(--color-deep-green) 100%);
+  color: var(--color-turmeric);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 3px 8px rgba(16, 58, 43, 0.2);
+  border: 1px solid rgba(232, 183, 70, 0.25);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.logoLink:hover .logoIcon {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(16, 58, 43, 0.28);
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+}
+
+.brandName {
+  font-family: var(--font-heading);
+  font-size: 23px;
+  font-weight: 800;
+  color: var(--color-deep-green);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+.brandSub {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--color-turmeric-text);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+/* Light variant for dark footer */
+.logoLight .brandName {
+  color: #ffffff;
+}
+
+.logoLight .brandSub {
+  color: var(--color-turmeric);
+}
+
+.logoLight .logoIcon {
+  background: #ffffff;
+  color: var(--color-forest);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}

@@ -22,7 +22,7 @@ export function getPhoneLink(): { href: string; isPlaceholder: boolean; label: s
   };
 }
 
-export function getWhatsAppLink(prefilledText = "Hello, I would like to order groceries."): {
+export function getWhatsAppLink(prefilledText = siteContent.storeDetails.whatsappPreFilledMessage): {
   href: string;
   isPlaceholder: boolean;
   label: string;
@@ -45,18 +45,9 @@ export function getWhatsAppLink(prefilledText = "Hello, I would like to order gr
 }
 
 export function getMapLink(): { href: string; isPlaceholder: boolean; label: string } {
-  const address = siteContent.storeDetails.address;
-  const mapUrl = siteContent.storeDetails.mapQueryUrl;
-  if (isPlaceholder(address) || mapUrl.includes("[ADD+STORE+ADDRESS]")) {
-    return {
-      href: "#unconfigured-address",
-      isPlaceholder: true,
-      label: address,
-    };
-  }
   return {
-    href: mapUrl,
+    href: siteContent.storeDetails.mapDirectionsUrl,
     isPlaceholder: false,
-    label: address,
+    label: siteContent.storeDetails.address,
   };
 }
